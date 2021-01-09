@@ -1,0 +1,24 @@
+<!-- prevent style and script from being loaded more than once per page -->
+{{ if not ($.Page.Scratch.Get "unityplayerloaded") }}
+  {{ $.Page.Scratch.Set "unityplayerloaded" 1 }}
+  <link rel="shortcut icon" href="{{ .Get 0 }}/../../TemplateData/favicon.ico">
+  <link rel="stylesheet" href="{{ .Get 0 }}/../../TemplateData/style.css">
+  <script src="{{ .Get 0 }}/../../TemplateData/UnityProgress.js"></script>
+  <script src="{{ .Get 0 }}/../UnityLoader.js"></script>
+{{ end }}
+
+<script>
+  var unityInstance = UnityLoader.instantiate("unityContainer", "{{ .Get 0 }}", {onProgress: UnityProgress});
+</script>
+
+<div>
+  <!-- Override unity style on main element -->
+  <div class="webgl-content" style="position: static; top: 0px; left: 0px; transform: none; -webkit-transform: none;">
+    <div id="unityContainer" style="height: 600px"></div>
+    <div class="footer">
+      <div class="webgl-logo"></div>
+      <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+      <div class="title">Repear</div>
+    </div>
+  </div>
+</div>
